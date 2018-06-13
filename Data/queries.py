@@ -1,0 +1,38 @@
+from cassandra.cluster import Cluster
+cluster= Cluster()
+session = cluster.connect()
+
+session.execute("""CREATE  KEYSPACE IF NOT EXISTS smartparking
+   WITH REPLICATION = { 
+      'class' : 'SimpleStrategy', 'replication_factor' : 1 }""") 
+
+session.set_keyspace('smartparking')
+
+session.execute("""CREATE TABLE places (id int,
+				longitude decimal,
+				latitude decimal,
+				close_to text,
+				occupied int,
+				payed int,
+				yellow int,
+				handicaped int,
+				heure_fin timestamp,
+				validated int,
+                PRIMARY KEY (id,close_to)
+              """);
+session.execute("""CREATE TABLE historique (id int,
+				id_place int,
+				heure_debut timestamp,
+				heure_fin timestamp,
+				montant decimal,
+                PRIMARY KEY (id)
+              );""")
+
+
+session.execute("""CREATE TABLE users(username text,password text,email text,credit_card text,code_jaune text,notif int,place_payee int, PRIMARY KEY(username) ); """)
+
+session.execute("COPY historique FROM 'historique.csv' with header=true;") 
+
+session.execute("COPY places FROM 'places.csv' with header=true;") 
+
+

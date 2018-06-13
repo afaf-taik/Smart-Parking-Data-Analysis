@@ -1,0 +1,37 @@
+%Generate data
+%Places
+[
+  '{{repeat(99, 101)}}',
+  {
+   
+    id: '{{index()}}',
+    latitude: '{{floating(45.378389,45.978389 )}}',
+    longitude: '{{floating(-71.929609,-71.029609)}}',
+    close_to: function (tags) {
+      var facultes = ['science', 'genie' , 'politique' , 'lettres' , 'residG' , 'residE','education','gestion','physique'];
+          return facultes[tags.integer(0, facultes.length - 1)] ; },
+    occupied: '{{integer(0, 1)}}',
+    payed: '{{integer(0, 1)}}',
+    yellow: '{{integer(0, 1)}}',
+    handicaped: '{{integer(0, 1)}}',
+    heure_fin: '{{date(new Date(2018, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}'
+
+
+
+  }
+]
+
+%historique
+
+[
+  '{{repeat(699, 701)}}',
+  {
+   
+    id: '{{index()}}',
+    id_place: '{{integer(0, 50)}}',
+    heure_debut: '{{date(new Date(2018, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+
+    heure_fin: '{{date(new Date(2018, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',
+    montant:'{{floating(0.75, 40, 2, "0.00")}}'
+  }
+]
